@@ -38,6 +38,7 @@ int main(int argc, char *argv[]) {
         printf("SERVER closed connection.\n");
         break;
     }
+    inputMsg[nbytes] = '\0';
     printf("recv: %s\n", inputMsg);
   }
 

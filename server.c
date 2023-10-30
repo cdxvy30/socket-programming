@@ -59,6 +59,7 @@ int main(int argc, char *argv[]) {
         printf("CLIENT closed connection.\n");
         break;
       }
+      inputMsg[nbytes] = '\0';
       printf("recv: %s\n", inputMsg);
       
       sprintf(outMsg, "echo %s", inputMsg);
