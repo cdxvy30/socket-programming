@@ -51,23 +51,23 @@ int main(int argc, char *argv[]) {
   while(1) {
     clientSockFd = accept(sockFd, (struct sockaddr *)&clientInfo, &addrLen);
     printf("Accept connection request from CLIENT [%s:%d].\n", inet_ntoa(clientInfo.sin_addr), ntohs(clientInfo.sin_port));
-
-    while(1) {
-      int nbytes = recv(clientSockFd, inputMsg, sizeof(inputMsg), 0);
-      if (nbytes <= 0) {
-        close(clientSockFd);
-        printf("CLIENT closed connection.\n");
-        break;
-      }
-      inputMsg[nbytes] = '\0';
-      printf("recv: %s\n", inputMsg);
-      
-      sprintf(outMsg, "echo %s", inputMsg);
-      send(clientSockFd, outMsg, strlen(outMsg), 0);
+    
+    int nbytes = recv(clientSockFd, inputMsg, sizeof(inputMsg), 0);
+    if (nbytes <= 0) {
+      close(clientSockFd);
+      printf("CLIENT closed connection.\n");
+      break;
     }
+    inputMsg[nbytes] = '\0';
+    printf("Receive from CLIENT: %s\n", inputMsg);
+
+    // while(1) {
+      
+    //   sprintf(outMsg, "%s", inputMsg);
+    //   send(clientSockFd, outMsg, strlen(outMsg), 0);
+    // }
   }
 
-  // Close
   close(sockFd);
   return 0;
 }
