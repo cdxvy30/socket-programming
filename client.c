@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
 
   status = connect(sockFd, (struct sockaddr *)&serverInfo, sizeof(serverInfo));
   if (status == -1) {
-    printf("connection error......\n");
+    printf("Connection error......Please check SERVER status.\n");
     exit(1);
   }
 
@@ -38,13 +38,13 @@ int main(int argc, char *argv[]) {
     printf("Send: %s\n", outMsg);
     send(sockFd, outMsg, strlen(outMsg), 0);
 
-    // int nbytes = recv(sockFd, inputMsg, sizeof(inputMsg), 0);
-    // if (nbytes <= 0) {
-    //     close(sockFd);
-    //     printf("SERVER closed connection.\n");
-    //     break;
-    // }
-    // inputMsg[nbytes] = '\0';
+    int nbytes = recv(sockFd, inputMsg, sizeof(inputMsg), 0);
+    if (nbytes <= 0) {
+        close(sockFd);
+        printf("SERVER closed connection.\n");
+        break;
+    }
+    inputMsg[nbytes] = '\0';
     // printf("Receive from SERVER: %s\n", inputMsg);
   }
 
