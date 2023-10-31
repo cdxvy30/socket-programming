@@ -62,6 +62,12 @@ int main(int argc, char *argv[]) {
       }
       inputMsg[nbytes] = '\0';
       printf("Receive from CLIENT: %s\n", inputMsg);
+
+      if (strcmp(inputMsg, "Bye") == 0) {
+        close(clientSockFd);
+        printf("CLIENT closed connection.\n");
+        break;
+      }
       
       sprintf(outMsg, "%s", inputMsg);
       send(clientSockFd, outMsg, strlen(outMsg), 0);

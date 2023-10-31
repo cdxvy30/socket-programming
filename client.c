@@ -38,6 +38,12 @@ int main(int argc, char *argv[]) {
     printf("Send: %s\n", outMsg);
     send(sockFd, outMsg, strlen(outMsg), 0);
 
+    if (strcmp(outMsg, "Bye") == 0) {
+      close(sockFd);
+      printf("You closed the connection.\n");
+      break;
+    }
+
     int nbytes = recv(sockFd, inputMsg, sizeof(inputMsg), 0);
     if (nbytes <= 0) {
         close(sockFd);
